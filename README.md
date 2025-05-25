@@ -113,13 +113,13 @@ Created sequences: Drug_seq, Sale_seq, Patient_seq, etc.
 Inserted sample data: E.g., drugs (Paracetamol, 100 units), patients, sales.
 
 Screenshots:
--Sequence creation:
+# -Sequence creation:
 <img width="947" alt="SEQUENCE CREATION" src="https://github.com/user-attachments/assets/3eb01b1b-663e-4c23-8c6d-0f25efee794c" />
-- Tables creation:
+# - Tables creation:
   <img width="959" alt="TABLES CREATION" src="https://github.com/user-attachments/assets/8fbc93df-9955-4a77-a921-3d9be6d06695" />
-- Confirmation of the above queries:
+# - Confirmation of the above queries:
   <img width="914" alt="confirmation sequences tables creation" src="https://github.com/user-attachments/assets/8edbb0c4-fc77-4dff-93aa-20202858faaa" />
-- Data insertion:
+# - Data insertion:
   <img width="959" alt="DATA INSERTION" src="https://github.com/user-attachments/assets/50823528-0a44-40b9-a04c-266f389823b9" />
 
 Description: This phase finalized the database structure, enabling data storage and manipulation, with outputs pending listener fix.
@@ -141,15 +141,15 @@ Created INVENTORY_CHECK_WINDOW: Daily window for inventory checks.
 Tested objects locally via SYS connection.
 
 Screenshots:
--package creation:
+# -package creation:
 <img width="959" alt="PACKAGES CREATION" src="https://github.com/user-attachments/assets/1b483917-5cec-4389-a59c-9ee78e4d10a2" />
-- Functions:
+# - Functions:
 <img width="959" alt="FUNCTIONS CREATION" src="https://github.com/user-attachments/assets/94084d5a-1759-4df8-ad3c-a81299e2bad4" />
-- Procedures:
+# - Procedures:
   <img width="959" alt="PROCEDURES CREATION" src="https://github.com/user-attachments/assets/02022068-b361-4055-8d1f-7d6b0f180f72" />
--Windows scheduler:
+# -Windows scheduler:
 <img width="891" alt="WINDOWS FUNCTIONS" src="https://github.com/user-attachments/assets/c30adaf2-7eff-45ba-9b78-b30406b1cada" />
-- DML and DDL Operations:
+# - DML and DDL Operations:
   <img width="959" alt="DML DDL Operations" src="https://github.com/user-attachments/assets/3a71b2e9-fc1e-4842-a55a-a3c98c656dd8" />
 
 Description: This phase introduced automation and business logic, enhancing system functionality, with testing limited by listener issues.
@@ -176,11 +176,12 @@ Tested triggers locally, logging sample DML attempts.
 
 
 Screenshots:
+
 <img width="917" alt="TRIGGERS CREATION" src="https://github.com/user-attachments/assets/d371f8da-148d-40b5-a1ff-b2121d68973b" />
 
 Description: This phase ensured data security and accountability, with triggers restricting and logging DML actions.
 
-Phase VIII: Final Presentation
+# Phase VIII: Final Presentation
 
 Objective: Summarize the project in a presentation, highlighting all phases.
 Activities:
@@ -194,12 +195,12 @@ Description: This phase consolidates the project’s achievements, preparing for
 
 Setup Instructions
 
-Install Oracle 21c Enterprise Edition.
-Configure listener.ora with HOST=localhost or 192.168.43.44.
-Run SQL scripts in order (Phases IV–VII) using SQL*Plus.
-Generate UML diagrams in draw.io using PlantUML code.
-Capture screenshots.
-Use GitHub for version control.
+-Install Oracle 21c Enterprise Edition.
+-Configure listener.ora.
+-Run SQL scripts in order (Phases IV–VII) using SQL*Plus.
+-Generate UML diagrams in draw.io using PlantUML code.
+-Capture screenshots.
+-Use GitHub for version control.
 
 License
 MIT License. Copyright (c) 2025 Mahamat.
