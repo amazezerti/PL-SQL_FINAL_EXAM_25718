@@ -1,0 +1,99 @@
+
+SQL> -- Supplier Table
+SQL> CREATE TABLE Supplier (
+  2      SupplierID NUMBER PRIMARY KEY,
+  3      Name VARCHAR2(100) NOT NULL,
+  4      Contact VARCHAR2(50)
+  5  );
+
+Table created.
+
+SQL> -- Drug Table
+SQL> CREATE TABLE Drug (
+  2      DrugID NUMBER PRIMARY KEY,
+  3      Name VARCHAR2(100) NOT NULL,
+  4      Price NUMBER CHECK (Price > 0),
+  5      Quantity NUMBER CHECK (Quantity >= 0),
+  6      ExpiryDate DATE,
+  7      SupplierID NUMBER,
+  8      FOREIGN KEY (SupplierID) REFERENCES Supplier(SupplierID)
+  9  );
+
+Table created.
+
+SQL> -- Patient Table
+SQL> CREATE TABLE Patient (
+  2      PatientID NUMBER PRIMARY KEY,
+  3      Name VARCHAR2(100) NOT NULL,
+  4      Contact VARCHAR2(50),
+  5      MedicalHistory VARCHAR2(500)
+  6  );
+
+Table created.
+
+SQL> -- Prescription Table
+SQL> CREATE TABLE Prescription (
+  2      PrescriptionID NUMBER PRIMARY KEY,
+  3      PatientID NUMBER,
+  4      DrugID NUMBER,
+  5      Dosage VARCHAR2(100),
+  6      DateIssued DATE DEFAULT SYSDATE,
+  7      FOREIGN KEY (PatientID) REFERENCES Patient(PatientID),
+  8      FOREIGN KEY (DrugID) REFERENCES Drug(DrugID)
+  9  );
+
+Table created.
+
+SQL> -- Employee Table
+SQL> CREATE TABLE Employee (
+  2      EmployeeID NUMBER PRIMARY KEY,
+  3      Name VARCHAR2(100) NOT NULL,
+  4      Role VARCHAR2(50),
+  5      Contact VARCHAR2(50)
+  6  );
+
+Table created.
+
+SQL> -- Sale Table
+SQL> CREATE TABLE Sale (
+  2      SaleID NUMBER PRIMARY KEY,
+  3      DrugID NUMBER,
+  4      PatientID NUMBER,
+  5      Date DATE DEFAULT SYSDATE,
+  6      Quantity NUMBER CHECK (Quantity > 0),
+  7      FOREIGN KEY (DrugID) REFERENCES Drug(DrugID),
+  8      FOREIGN KEY (PatientID) REFERENCES Patient(PatientID)
+  9  );
+    Date DATE DEFAULT SYSDATE,
+    *
+ERROR at line 5:
+ORA-00904: : invalid identifier
+
+
+SQL> -- Sale Table
+SQL> CREATE TABLE Sale (
+  2      SaleID NUMBER PRIMARY KEY,
+  3      DrugID NUMBER,
+  4      PatientID NUMBER,
+  5      SaleDate DATE DEFAULT SYSDATE,
+  6      Quantity NUMBER CHECK (Quantity > 0),
+  7      FOREIGN KEY (DrugID) REFERENCES Drug(DrugID),
+  8      FOREIGN KEY (PatientID) REFERENCES Patient(PatientID)
+  9  );
+
+Table created.
+
+SQL> -- Holiday Table
+SQL> CREATE TABLE Holiday (
+  2      HolidayID NUMBER PRIMARY KEY,
+  3      HolidayDate DATE NOT NULL,
+  4      Description VARCHAR2(100)
+  5  );
+
+Table created.
+
+SQL> ALTER SESSION SET CONTAINER = thurs_25718_mahamat_PharmacyMS_DB;
+
+Session altered.
+
+SQL>

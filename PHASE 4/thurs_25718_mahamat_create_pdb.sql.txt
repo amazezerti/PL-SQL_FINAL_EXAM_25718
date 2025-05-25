@@ -1,0 +1,33 @@
+Version 21.3.0.0.0
+
+Copyright (c) 1982, 2021, Oracle.  All rights reserved.
+
+Enter user-name: sql/plus as sysdba
+
+Connected to:
+Oracle Database 21c Enterprise Edition Release 21.0.0.0.0 - Production
+Version 21.3.0.0.0
+
+SQL> CREATE PLUGGABLE DATABASE thurs_25718_mahamat_PharmacyMS_DB
+  2  ADMIN USER mahamat IDENTIFIED BY mahamat
+  3  ROLES = (DBA)
+  4  FILE_NAME_CONVERT = ('C:\OracleBase\oradata\ORCL\pdbseed', 'C:\OracleBase\oradata\thurs_25718_mahamat_PharmacyMS_DB');
+
+Pluggable database created.
+
+SQL> ALTER PLUGGABLE DATABASE thurs_25718_mahamat_PharmacyMS_DB OPEN;
+
+Pluggable database altered.
+
+SQL> ALTER SESSION SET CONTAINER = thurs_25718_mahamat_PharmacyMS_DB;
+
+Session altered.
+
+SQL> SHOW PDBS;
+
+    CON_ID CON_NAME                       OPEN MODE  RESTRICTED
+---------- ------------------------------ ---------- ----------
+         5 THURS_25718_MAHAMAT_PHARMACYMS READ WRITE NO
+           _DB
+
+SQL>

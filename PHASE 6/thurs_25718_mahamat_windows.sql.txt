@@ -1,0 +1,18 @@
+SQL> SELECT d.Name, SUM(s.Quantity) as TotalSold,
+  2         RANK() OVER (ORDER BY SUM(s.Quantity) DESC) as SalesRank
+  3  FROM Sale s
+  4  JOIN Drug d ON s.DrugID = d.DrugID
+  5  GROUP BY d.Name;
+
+NAME
+--------------------------------------------------------------------------------
+ TOTALSOLD  SALESRANK
+---------- ----------
+Paracetamol
+        10          1
+
+Amoxicillin
+         5          2
+
+
+SQL>

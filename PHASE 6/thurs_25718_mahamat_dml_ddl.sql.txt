@@ -1,0 +1,17 @@
+SQL> -- DML: Update drug quantity
+SQL> UPDATE Drug SET Quantity = Quantity - 5 WHERE DrugID = 1;
+
+1 row updated.
+
+SQL>
+SQL> -- DML: Delete expired drugs
+SQL> DELETE FROM Drug WHERE ExpiryDate < SYSDATE;
+
+0 rows deleted.
+
+SQL> -- DDL: Add category to Drug
+SQL> ALTER TABLE Drug ADD (Category VARCHAR2(50));
+
+Table altered.
+
+SQL>

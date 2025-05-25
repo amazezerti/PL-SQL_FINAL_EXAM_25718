@@ -1,0 +1,49 @@
+SQL> CREATE OR REPLACE TRIGGER AuditDML
+  2  FOR INSERT OR UPDATE OR DELETE ON Drug
+  3  COMPOUND TRIGGER
+  4      -- Declare variables
+  5      v_user VARCHAR2(50);
+  6      v_operation VARCHAR2(50);
+  7      v_error_msg VARCHAR2(4000); -- For SQLERRM
+  8
+  9  AFTER EACH ROW IS
+ 10      BEGIN
+ 11          v_user := USER;
+ 12          IF INSERTING THEN
+ 13              v_operation := 'INSERT';
+ 14          ELSIF UPDATING THEN
+ 15              v_operation := 'UPDATE';
+ 16          ELSIF DELETING THEN
+ 17              v_operation := 'DELETE';
+ 18          END IF;
+ 19          INSERT INTO AuditLog (AuditID, UserID, ActionDate, Operation, Status)
+ 20          VALUES (audit_seq.NEXTVAL, v_user, SYSDATE, v_operation, 'Success');
+ 21      EXCEPTION
+ 22          WHEN OTHERS THEN
+ 23              v_error_msg := 'Failed: ' || SQLERRM;
+ 24              INSERT INTO AuditLog (AuditID, UserID, ActionDate, Operation, Status)
+ 25              VALUES (audit_seq.NEXTVAL, v_user, SYSDATE, v_operation, v_error_msg);
+ 26      END AFTER EACH ROW;
+ 27
+ 28  END AuditDML;
+ 29  /
+
+Trigger created.
+
+SQL> SELECT OBJECT_NAME, OBJECT_TYPE, STATUS FROM USER_OBJECTS WHERE OBJECT_NAME = 'AUDITDML';
+
+OBJECT_NAME
+------------------------------------------------------------------------------------------------------------------------
+OBJECT_TYPE             STATUS
+----------------------- -------
+AUDITDML
+TRIGGER                 VALID
+
+
+SQL> SHOW ERRORS TRIGGER AUDITDML;
+No errors.
+SQL> ALTER SYSTEM SET FIXED_DATE = NONE;
+
+System altered.
+
+SQL>

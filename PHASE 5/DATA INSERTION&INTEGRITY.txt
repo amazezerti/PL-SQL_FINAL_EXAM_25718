@@ -1,0 +1,113 @@
+
+SQL> ALTER SESSION SET CONTAINER = thurs_25718_mahamat_PharmacyMS_DB;
+
+Session altered.
+
+SQL> -- Insert Suppliers
+SQL> INSERT INTO Supplier VALUES (supplier_seq.NEXTVAL, 'MediSupply', '123-456-7890');
+
+1 row created.
+
+SQL> INSERT INTO Supplier VALUES (supplier_seq.NEXTVAL, 'PharmaCorp', '987-654-3210');
+
+1 row created.
+
+SQL> -- Insert Drugs
+SQL> INSERT INTO Drug VALUES (drug_seq.NEXTVAL, 'Paracetamol', 5.99, 100, TO_DATE('2026-12-31', 'YYYY-MM-DD'), 1);
+
+1 row created.
+
+SQL> INSERT INTO Drug VALUES (drug_seq.NEXTVAL, 'Amoxicillin', 12.50, 50, TO_DATE('2026-06-30', 'YYYY-MM-DD'), 2);
+
+1 row created.
+
+SQL> -- Insert Patients
+SQL> INSERT INTO Patient VALUES (patient_seq.NEXTVAL, 'John Doe', '555-1234', 'Allergic to penicillin');
+
+1 row created.
+
+SQL> INSERT INTO Patient VALUES (patient_seq.NEXTVAL, 'Jane Smith', '555-5678', 'No allergies');
+
+1 row created.
+
+SQL> -- Insert Prescriptions
+SQL> INSERT INTO Prescription VALUES (prescription_seq.NEXTVAL, 1, 1, '500mg daily', SYSDATE);
+
+1 row created.
+
+SQL> INSERT INTO Prescription VALUES (prescription_seq.NEXTVAL, 2, 1, '250mg twice daily', SYSDATE);
+
+1 row created.
+
+SQL> -- Insert Employees
+SQL> INSERT INTO Employee VALUES (employee_seq.NEXTVAL, 'Alice Brown', 'Pharmacist', '555-9012');
+
+1 row created.
+
+SQL> INSERT INTO Employee VALUES (employee_seq.NEXTVAL, 'Bob White', 'Manager', '555-3456');
+
+1 row created.
+
+SQL> -- Insert Sales
+SQL> INSERT INTO Sale VALUES (sale_seq.NEXTVAL, 1, 1, SYSDATE, 10);
+
+1 row created.
+
+SQL> INSERT INTO Sale VALUES (sale_seq.NEXTVAL, 2, 2, SYSDATE, 5);
+
+1 row created.
+
+SQL> -- Insert Holidays (for June 2025)
+SQL> INSERT INTO Holiday VALUES (holiday_seq.NEXTVAL, TO_DATE('2025-06-16', 'YYYY-MM-DD'), 'Youth Day');
+
+1 row created.
+
+SQL> INSERT INTO Holiday VALUES (holiday_seq.NEXTVAL, TO_DATE('2025-06-17', 'YYYY-MM-DD'), 'Public Holiday');
+
+1 row created.
+
+SQL> SELECT * FROM Drug WHERE Quantity < 20; -- Low stock alert
+  2  SELECT p.Name, d.Name, pr.Dosage
+  3  FROM Prescription pr
+  4  JOIN Patient p ON pr.PatientID = p.PatientID
+  5  JOIN Drug d ON pr.DrugID = d.DrugID;
+SELECT * FROM Drug WHERE Quantity < 20; -- Low stock alert
+                                      *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended
+
+
+SQL> -- Query 1: Check low stock drugs
+SQL> SELECT * FROM Drug WHERE Quantity < 20;
+
+no rows selected
+
+SQL> -- Query 2: Get prescriptions with patient and drug info
+SQL> SELECT p.Name AS PatientName, d.Name AS DrugName, pr.Dosage
+  2  FROM Prescription pr
+  3  JOIN Patient p ON pr.PatientID = p.PatientID
+  4  JOIN Drug d ON pr.DrugID = d.DrugID;
+
+PATIENTNAME
+--------------------------------------------------------------------------------
+DRUGNAME
+--------------------------------------------------------------------------------
+DOSAGE
+--------------------------------------------------------------------------------
+John Doe
+Paracetamol
+500mg daily
+
+Jane Smith
+Paracetamol
+250mg twice daily
+
+PATIENTNAME
+--------------------------------------------------------------------------------
+DRUGNAME
+--------------------------------------------------------------------------------
+DOSAGE
+--------------------------------------------------------------------------------
+
+
+SQL>

@@ -1,0 +1,52 @@
+
+SQL> SHOW ERRORS TRIGGER AUDITDML;
+No errors.
+SQL> ALTER SYSTEM SET FIXED_DATE = NONE;
+
+System altered.
+
+SQL> SET SERVEROUTPUT ON;
+SQL> ALTER SYSTEM SET FIXED_DATE = '2025-06-16';
+
+System altered.
+
+SQL> INSERT INTO Drug VALUES (drug_seq.NEXTVAL, 'TestDrug', 10, 50, TO_DATE('2026-12-31', 'YYYY-MM-DD'), 1);
+INSERT INTO Drug VALUES (drug_seq.NEXTVAL, 'TestDrug', 10, 50, TO_DATE('2026-12-31', 'YYYY-MM-DD'), 1)
+                         *
+ERROR at line 1:
+ORA-20002: Table manipulations are not allowed on weekdays.
+ORA-06512: at "MAHAMAT.RESTRICTDML", line 8
+ORA-04088: error during execution of trigger 'MAHAMAT.RESTRICTDML'
+
+
+SQL> ALTER SYSTEM SET FIXED_DATE = NONE;
+
+System altered.
+
+SQL> INSERT INTO Drug VALUES (drug_seq.NEXTVAL, 'TestDrug', 10, 50, TO_DATE('2026-12-31', 'YYYY-MM-DD'), 1);
+
+1 row created.
+
+SQL> UPDATE Drug SET Quantity = Quantity + 10 WHERE DrugID = 1;
+
+1 row updated.
+
+SQL> INSERT INTO Drug VALUES (drug_seq.NEXTVAL, 'InvalidDrug', -10, 50, TO_DATE('2026-12-31', 'YYYY-MM-DD'), 1);
+INSERT INTO Drug VALUES (drug_seq.NEXTVAL, 'InvalidDrug', -10, 50, TO_DATE('2026-12-31', 'YYYY-MM-DD'), 1)
+*
+ERROR at line 1:
+ORA-02290: check constraint (MAHAMAT.SYS_C008243) violated
+
+
+SQL> SET LINESIZE 120;
+SQL> COLUMN USERID FORMAT A10;
+SQL> COLUMN OPERATION FORMAT A10;
+SQL> COLUMN STATUS FORMAT A50;
+SQL> SELECT * FROM AuditLog;
+
+   AUDITID USERID     ACTIONDAT OPERATION  STATUS
+---------- ---------- --------- ---------- --------------------------------------------------
+         1 MAHAMAT    24-MAY-25 INSERT     Success
+         2 MAHAMAT    24-MAY-25 UPDATE     Success
+
+SQL>

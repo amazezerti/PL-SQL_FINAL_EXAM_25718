@@ -1,0 +1,25 @@
+SQL> CREATE OR REPLACE FUNCTION GetTotalSalesValue RETURN NUMBER AS
+  2      v_total NUMBER;
+  3  BEGIN
+  4      SELECT SUM(s.Quantity * d.Price)
+  5      INTO v_total
+  6      FROM Sale s
+  7      JOIN Drug d ON s.DrugID = d.DrugID;
+  8      RETURN v_total;
+  9  EXCEPTION
+ 10      WHEN NO_DATA_FOUND THEN
+ 11          RETURN 0;
+ 12      WHEN OTHERS THEN
+ 13          RAISE_APPLICATION_ERROR(-20001, 'Error in GetTotalSalesValue: ' || SQLERRM);
+ 14  END;
+ 15  /
+
+Function created.
+
+SQL> SELECT GetTotalSalesValue() FROM DUAL;
+
+GETTOTALSALESVALUE()
+--------------------
+               122.4
+
+SQL>

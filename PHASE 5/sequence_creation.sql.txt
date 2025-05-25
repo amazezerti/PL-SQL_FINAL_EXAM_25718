@@ -1,0 +1,30 @@
+
+SQL> CREATE SEQUENCE drug_seq START WITH 1 INCREMENT BY 1;
+
+Sequence created.
+
+SQL> CREATE SEQUENCE prescription_seq START WITH 1 INCREMENT BY 1;
+
+Sequence created.
+
+SQL> CREATE SEQUENCE patient_seq START WITH 1 INCREMENT BY 1;
+
+Sequence created.
+
+SQL> CREATE SEQUENCE employee_seq START WITH 1 INCREMENT BY 1;
+
+Sequence created.
+
+SQL> CREATE SEQUENCE sale_seq START WITH 1 INCREMENT BY 1;
+
+Sequence created.
+
+SQL> CREATE SEQUENCE supplier_seq START WITH 1 INCREMENT BY 1;
+
+Sequence created.
+
+SQL> CREATE SEQUENCE holiday_seq START WITH 1 INCREMENT BY 1;
+
+Sequence created.
+
+SQL> 

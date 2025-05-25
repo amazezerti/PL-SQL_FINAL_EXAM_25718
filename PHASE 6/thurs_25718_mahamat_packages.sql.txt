@@ -1,0 +1,60 @@
+
+SQL> CREATE OR REPLACE PACKAGE InventoryPkg AS
+  2      PROCEDURE GetLowStockDrugs(p_threshold IN NUMBER);
+  3      FUNCTION GetTotalSalesValue RETURN NUMBER;
+  4  END InventoryPkg;
+  5  /
+
+Package created.
+
+SQL> CREATE OR REPLACE PACKAGE BODY InventoryPkg AS
+  2      PROCEDURE GetLowStockDrugs(p_threshold IN NUMBER) AS
+  3          CURSOR drug_cursor IS
+  4              SELECT DrugID, Name, Quantity FROM Drug WHERE Quantity < p_threshold;
+  5          v_drug_id Drug.DrugID%TYPE;
+  6          v_name Drug.Name%TYPE;
+  7          v_quantity Drug.Quantity%TYPE;
+  8      BEGIN
+  9          OPEN drug_cursor;
+ 10          LOOP
+ 11              FETCH drug_cursor INTO v_drug_id, v_name, v_quantity;
+ 12              EXIT WHEN drug_cursor%NOTFOUND;
+ 13              DBMS_OUTPUT.PUT_LINE('Drug: ' || v_name || ', Quantity: ' || v_quantity);
+ 14          END LOOP;
+ 15          CLOSE drug_cursor;
+ 16      EXCEPTION
+ 17          WHEN OTHERS THEN
+ 18              DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
+ 19              CLOSE drug_cursor;
+ 20      END;
+ 21
+ 22      FUNCTION GetTotalSalesValue RETURN NUMBER AS
+ 23          v_total NUMBER;
+ 24      BEGIN
+ 25          SELECT SUM(s.Quantity * d.Price)
+ 26          INTO v_total
+ 27          FROM Sale s
+ 28          JOIN Drug d ON s.DrugID = d.DrugID;
+ 29          RETURN v_total;
+ 30      EXCEPTION
+ 31          WHEN NO_DATA_FOUND THEN
+ 32              RETURN 0;
+ 33          WHEN OTHERS THEN
+ 34              RAISE_APPLICATION_ERROR(-20001, 'Error in GetTotalSalesValue: ' || SQLERRM);
+ 35      END;
+ 36  END InventoryPkg;
+ 37  /
+
+Package body created.
+
+SQL> EXEC InventoryPkg.GetLowStockDrugs(20);
+
+PL/SQL procedure successfully completed.
+
+SQL> SELECT InventoryPkg.GetTotalSalesValue() FROM DUAL;
+
+INVENTORYPKG.GETTOTALSALESVALUE()
+---------------------------------
+                            122.4
+
+SQL>
